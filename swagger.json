@@ -1,0 +1,1989 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/users/all": {
+      "get": {
+        "operationId": "UsersController_getAllUsers",
+        "parameters": [
+          {
+            "name": "role",
+            "required": false,
+            "in": "query",
+            "description": "Filter users by role",
+            "schema": {
+              "example": "therapist",
+              "type": "string",
+              "enum": [
+                "admin",
+                "patient",
+                "therapist"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "example": {
+                  "access_token": "hashcklsachlka"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all users (or of specific roles)",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginPatientDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "example": {
+                  "access_token": "hashcklsachlka"
+                }
+              }
+            }
+          }
+        },
+        "summary": "User Login",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/patient/register": {
+      "post": {
+        "operationId": "AuthController_registerPatient",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterPatientDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Register a new patient",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/therapist/register": {
+      "post": {
+        "operationId": "AuthController_registerTherapist",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterTherapistDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Register a new therapist",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/admin/register": {
+      "post": {
+        "operationId": "AuthController_registerAdmin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterAdminDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Register a new admin (Can only be used by existing admins)",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/request-password-reset": {
+      "post": {
+        "operationId": "AuthController_requestPasswordReset",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestPasswordResetDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password request email has been sent"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "summary": "Request password reset email",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "operationId": "AuthController_resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password has been reset successfully"
+          },
+          "400": {
+            "description": "Token is invalid or has expired"
+          }
+        },
+        "summary": "Reset password using token",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/therapy-types": {
+      "get": {
+        "operationId": "TherapyTypeController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of therapy types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TherapyTypeResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get all therapy types",
+        "tags": [
+          "TherapyType"
+        ]
+      },
+      "post": {
+        "operationId": "TherapyTypeController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTherapyTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Therapy type created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TherapyTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new therapy type (Admin only route)",
+        "tags": [
+          "TherapyType"
+        ]
+      }
+    },
+    "/therapy-types/{id}": {
+      "get": {
+        "operationId": "TherapyTypeController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Therapy type ID",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Therapy type found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TherapyTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a therapy type by ID",
+        "tags": [
+          "TherapyType"
+        ]
+      },
+      "put": {
+        "operationId": "TherapyTypeController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Therapy type ID",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTherapyTypeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Therapy type updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TherapyTypeResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a therapy type (Admin only route)",
+        "tags": [
+          "TherapyType"
+        ]
+      },
+      "delete": {
+        "operationId": "TherapyTypeController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Therapy type ID",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Therapy type has been deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a therapy type (Admin only route)",
+        "tags": [
+          "TherapyType"
+        ]
+      }
+    },
+    "/appointments": {
+      "post": {
+        "operationId": "AppointmentsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAppointmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The appointment has been successfully created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a new appointment (Admin will do it)",
+        "tags": [
+          "appointments"
+        ]
+      },
+      "get": {
+        "operationId": "AppointmentsController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (starts from 1)",
+            "schema": {
+              "example": 1,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns all appointments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppointmentResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all appointments",
+        "tags": [
+          "appointments"
+        ]
+      }
+    },
+    "/appointments/{id}": {
+      "get": {
+        "operationId": "AppointmentsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Appointment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the appointment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Appointment not found."
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get an appointment by ID",
+        "tags": [
+          "appointments"
+        ]
+      },
+      "put": {
+        "operationId": "AppointmentsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Appointment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAppointmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The appointment has been successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "404": {
+            "description": "Appointment not found."
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update an appointment",
+        "tags": [
+          "appointments"
+        ]
+      },
+      "delete": {
+        "operationId": "AppointmentsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Appointment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The appointment has been successfully deleted."
+          },
+          "404": {
+            "description": "Appointment not found."
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete an appointment",
+        "tags": [
+          "appointments"
+        ]
+      }
+    },
+    "/appointments/patient/{patientId}": {
+      "get": {
+        "operationId": "AppointmentsController_findByPatient",
+        "parameters": [
+          {
+            "name": "patientId",
+            "required": true,
+            "in": "path",
+            "description": "Patient user ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns appointments for the patient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppointmentResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get appointments by patient ID",
+        "tags": [
+          "appointments"
+        ]
+      }
+    },
+    "/appointments/therapist/{therapistId}": {
+      "get": {
+        "operationId": "AppointmentsController_findByTherapist",
+        "parameters": [
+          {
+            "name": "therapistId",
+            "required": true,
+            "in": "path",
+            "description": "Therapist user ID",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns appointments for the therapist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppointmentResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get appointments by therapist ID",
+        "tags": [
+          "appointments"
+        ]
+      }
+    },
+    "/appointments/request-appointment": {
+      "post": {
+        "operationId": "AppointmentsController_requestAppointment",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestAppointmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The appointment has been successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Request an appointment (Intended to be used by patient)",
+        "tags": [
+          "appointments"
+        ]
+      }
+    },
+    "/appointments/confirm-appointment/{id}": {
+      "put": {
+        "operationId": "AppointmentsController_confirmAppointment",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Appointment ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmAppointmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The appointment has been successfully updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Confirm an appointment (Intended to be used by admin)",
+        "tags": [
+          "appointments"
+        ]
+      }
+    },
+    "/appointments/notes": {
+      "post": {
+        "operationId": "TherapistNotesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTherapistNoteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TherapistNote"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a therapist note",
+        "tags": [
+          "Therapist Notes"
+        ]
+      }
+    },
+    "/appointments/notes/{appointmentId}": {
+      "get": {
+        "operationId": "TherapistNotesController_findByAppointment",
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TherapistNote"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get therapist notes for an appointment",
+        "tags": [
+          "Therapist Notes"
+        ]
+      }
+    },
+    "/appointments/notes/{id}": {
+      "put": {
+        "operationId": "TherapistNotesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTherapistNoteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TherapistNote"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a therapist note",
+        "tags": [
+          "Therapist Notes"
+        ]
+      },
+      "delete": {
+        "operationId": "TherapistNotesController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a therapist note",
+        "tags": [
+          "Therapist Notes"
+        ]
+      }
+    },
+    "/patient-profiles": {
+      "post": {
+        "operationId": "PatientProfileController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePatientProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Profile created successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a patient profile",
+        "tags": [
+          "Patient Profiles"
+        ]
+      },
+      "get": {
+        "operationId": "PatientProfileController_findOne",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Profile retrieved"
+          },
+          "404": {
+            "description": "Profile not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a single patient profile",
+        "tags": [
+          "Patient Profiles"
+        ]
+      }
+    },
+    "/patient-profiles/all": {
+      "get": {
+        "operationId": "PatientProfileController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of profiles"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all patient profiles",
+        "tags": [
+          "Patient Profiles"
+        ]
+      }
+    },
+    "/patient-profiles/{id}": {
+      "patch": {
+        "operationId": "PatientProfileController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePatientProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a patient profile",
+        "tags": [
+          "Patient Profiles"
+        ]
+      },
+      "delete": {
+        "operationId": "PatientProfileController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile deleted successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a patient profile",
+        "tags": [
+          "Patient Profiles"
+        ]
+      }
+    },
+    "/therapist-profiles": {
+      "post": {
+        "operationId": "TherapistProfileController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTherapistProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TherapistProfile"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a therapist profile",
+        "tags": [
+          "Therapist Profiles"
+        ]
+      },
+      "get": {
+        "operationId": "TherapistProfileController_findOne",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Profile retrieved"
+          },
+          "404": {
+            "description": "Profile not found"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a single therapist profile",
+        "tags": [
+          "Therapist Profiles"
+        ]
+      }
+    },
+    "/therapist-profiles/all": {
+      "get": {
+        "operationId": "TherapistProfileController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TherapistProfile"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get all therapist profiles",
+        "tags": [
+          "Therapist Profiles"
+        ]
+      }
+    },
+    "/therapist-profiles/{id}": {
+      "patch": {
+        "operationId": "TherapistProfileController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTherapistProfileDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Profile updated successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update a patient profile",
+        "tags": [
+          "Therapist Profiles"
+        ]
+      },
+      "delete": {
+        "operationId": "TherapistProfileController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile deleted successfully"
+          },
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a patient profile",
+        "tags": [
+          "Therapist Profiles"
+        ]
+      }
+    },
+    "/payments/stripe/create-payment-intent": {
+      "post": {
+        "operationId": "PaymentController_createPaymentIntent",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStripePaymentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Payment successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StripePaymentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a payment intent in stripe",
+        "tags": [
+          "Payments"
+        ]
+      }
+    },
+    "/payments/webhook": {
+      "post": {
+        "operationId": "PaymentController_handleWebhook",
+        "parameters": [
+          {
+            "name": "stripe-signature",
+            "required": true,
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Buffer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Payments"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Therapist Booking System API",
+    "description": "API documentation for the therapist booking system",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "LoginPatientDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john@example.com",
+            "description": "Email of the user"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123",
+            "description": "User password",
+            "minLength": 6
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "RegisterPatientDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john@example.com",
+            "description": "Email of the user"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123",
+            "description": "User password",
+            "minLength": 6
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John",
+            "description": "First name of the user"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Last name of the user"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "firstName",
+          "lastName"
+        ]
+      },
+      "UserResponseDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "RegisterTherapistDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john@example.com",
+            "description": "Email of the user"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123",
+            "description": "User password",
+            "minLength": 6
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John",
+            "description": "First name of the user"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Last name of the user"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "firstName",
+          "lastName"
+        ]
+      },
+      "RegisterAdminDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john@example.com",
+            "description": "Email of the user"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123",
+            "description": "User password",
+            "minLength": 6
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John",
+            "description": "First name of the user"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Last name of the user"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "firstName",
+          "lastName"
+        ]
+      },
+      "RequestPasswordResetDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john@example.com",
+            "description": "Email of the user"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "xgsauigaskuhkas3629)",
+            "description": "A string token"
+          },
+          "newPassword": {
+            "type": "string",
+            "example": "password",
+            "description": "New Password of the user"
+          }
+        },
+        "required": [
+          "token",
+          "newPassword"
+        ]
+      },
+      "TherapyTypeResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "Unique identifier for the therapy type"
+          },
+          "name": {
+            "type": "string",
+            "example": "Individual Therapy",
+            "description": "The name of the therapy type"
+          },
+          "description": {
+            "type": "string",
+            "example": "One-on-one therapy session",
+            "description": "A short description of the therapy type"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-01T12:00:00Z",
+            "description": "Timestamp when the therapy type was created"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-01-02T12:00:00Z",
+            "description": "Timestamp when the therapy type was last updated"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateTherapyTypeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Individual Therapy",
+            "description": "The name of the therapy type"
+          },
+          "description": {
+            "type": "string",
+            "example": "One-on-one therapy session",
+            "description": "A short description of the therapy type"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateTherapyTypeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Individual Therapy",
+            "description": "The name of the therapy type"
+          },
+          "description": {
+            "type": "string",
+            "example": "One-on-one therapy session",
+            "description": "A short description of the therapy type"
+          }
+        }
+      },
+      "CreateAppointmentDto": {
+        "type": "object",
+        "properties": {
+          "therapyTypeId": {
+            "type": "number",
+            "description": "ID of the therapy type",
+            "example": 1
+          },
+          "duration": {
+            "type": "number",
+            "description": "Duration of the appointment in minutes",
+            "example": 60
+          },
+          "scheduledAt": {
+            "type": "string",
+            "description": "Scheduled date and time of the appointment",
+            "example": "2025-04-01T14:00:00Z"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "Whether the appointment is completed",
+            "example": false,
+            "default": false
+          },
+          "meetingUrl": {
+            "type": "string",
+            "description": "URL for the meeting/video call",
+            "example": "https://zoom.us/j/123456789"
+          },
+          "patientIds": {
+            "description": "Array of patient user IDs",
+            "example": [
+              1,
+              2
+            ],
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "therapistIds": {
+            "description": "Array of therapist user IDs",
+            "example": [
+              3,
+              4
+            ],
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "required": [
+          "therapyTypeId",
+          "duration",
+          "scheduledAt",
+          "patientIds",
+          "therapistIds"
+        ]
+      },
+      "TherapyType": {
+        "type": "object",
+        "properties": {}
+      },
+      "PatientDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email"
+        ]
+      },
+      "TherapistDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 3
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Smith"
+          },
+          "email": {
+            "type": "string",
+            "example": "jane.smith@example.com"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "email"
+        ]
+      },
+      "AppointmentResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "duration": {
+            "type": "number",
+            "example": 60
+          },
+          "scheduledAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-04-01T14:00:00Z"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "example": false
+          },
+          "meetingUrl": {
+            "type": "string",
+            "example": "https://zoom.us/j/123456789"
+          },
+          "therapyType": {
+            "$ref": "#/components/schemas/TherapyType"
+          },
+          "patients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PatientDto"
+            }
+          },
+          "therapists": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TherapistDto"
+            }
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-03-24T12:00:00Z"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-03-24T12:00:00Z"
+          },
+          "isConfirmed": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "id",
+          "duration",
+          "scheduledAt",
+          "isCompleted",
+          "therapyType",
+          "patients",
+          "therapists",
+          "createdAt",
+          "updatedAt",
+          "isConfirmed"
+        ]
+      },
+      "UpdateAppointmentDto": {
+        "type": "object",
+        "properties": {
+          "therapyTypeId": {
+            "type": "number",
+            "description": "ID of the therapy type",
+            "example": 1
+          },
+          "duration": {
+            "type": "number",
+            "description": "Duration of the appointment in minutes",
+            "example": 60
+          },
+          "scheduledAt": {
+            "type": "string",
+            "description": "Scheduled date and time of the appointment",
+            "example": "2025-04-01T14:00:00Z"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "Whether the appointment is completed",
+            "example": true,
+            "default": false
+          },
+          "meetingUrl": {
+            "type": "string",
+            "description": "URL for the meeting/video call",
+            "example": "https://zoom.us/j/123456789"
+          },
+          "patientIds": {
+            "description": "Array of patient user IDs",
+            "example": [
+              1,
+              2
+            ],
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "therapistIds": {
+            "description": "Array of therapist user IDs",
+            "example": [
+              3,
+              4
+            ],
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "RequestAppointmentDto": {
+        "type": "object",
+        "properties": {
+          "therapyTypeId": {
+            "type": "number",
+            "description": "ID of the therapy type",
+            "example": 1
+          },
+          "duration": {
+            "type": "number",
+            "description": "Duration of the appointment in minutes",
+            "example": 60
+          },
+          "scheduledAt": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Scheduled date and time of the appointment",
+            "example": "2025-04-01T14:00:00Z"
+          }
+        },
+        "required": [
+          "therapyTypeId",
+          "duration",
+          "scheduledAt"
+        ]
+      },
+      "ConfirmAppointmentDto": {
+        "type": "object",
+        "properties": {
+          "therapistId": {
+            "type": "number",
+            "description": "ID of the therapist",
+            "example": 42
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "description": "Appointment date and time with timezone",
+            "example": "2023-12-25T14:30:00.000Z"
+          }
+        },
+        "required": [
+          "therapistId",
+          "date"
+        ]
+      },
+      "CreateTherapistNoteDto": {
+        "type": "object",
+        "properties": {
+          "appointmentId": {
+            "type": "number",
+            "example": 1,
+            "description": "Appointment ID"
+          },
+          "note": {
+            "type": "string",
+            "example": "Patient responded well to the session.",
+            "description": "Therapist note"
+          },
+          "isVisibleToPatient": {
+            "type": "boolean",
+            "example": false,
+            "description": "Is note visible to user"
+          }
+        },
+        "required": [
+          "appointmentId",
+          "note",
+          "isVisibleToPatient"
+        ]
+      },
+      "TherapistNote": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateTherapistNoteDto": {
+        "type": "object",
+        "properties": {
+          "note": {
+            "type": "string",
+            "example": "Updated note content",
+            "description": "Updated therapist note"
+          },
+          "isVisibleToPatient": {
+            "type": "boolean",
+            "example": false,
+            "description": "Is note visible to user"
+          }
+        },
+        "required": [
+          "note",
+          "isVisibleToPatient"
+        ]
+      },
+      "CreatePatientProfileDto": {
+        "type": "object",
+        "properties": {
+          "dateOfBirth": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdatePatientProfileDto": {
+        "type": "object",
+        "properties": {
+          "dateOfBirth": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateTherapistProfileDto": {
+        "type": "object",
+        "properties": {
+          "specialization": {
+            "type": "string"
+          },
+          "licenseNumber": {
+            "type": "string"
+          },
+          "yearsOfExperience": {
+            "type": "number"
+          },
+          "userId": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "userId"
+        ]
+      },
+      "TherapistProfile": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateTherapistProfileDto": {
+        "type": "object",
+        "properties": {
+          "specialization": {
+            "type": "string"
+          },
+          "licenseNumber": {
+            "type": "string"
+          },
+          "yearsOfExperience": {
+            "type": "number"
+          }
+        }
+      },
+      "CreateStripePaymentDto": {
+        "type": "object",
+        "properties": {
+          "appointmentId": {
+            "type": "number",
+            "description": "ID of the appointment being paid for",
+            "example": 42
+          },
+          "amount": {
+            "type": "number",
+            "description": "Payment amount",
+            "example": 99.99
+          }
+        },
+        "required": [
+          "appointmentId",
+          "amount"
+        ]
+      },
+      "StripePaymentResponseDto": {
+        "type": "object",
+        "properties": {
+          "clientSecret": {
+            "type": "string",
+            "description": "Client secret for confirming the payment on the client side",
+            "example": "pi_3LNtTY2eZvKYlo2C0hVh6XJQ_secret_3g2vV6XJQhVh6XJQhVh6XJQh"
+          },
+          "paymentId": {
+            "type": "number",
+            "description": "ID of the created payment record",
+            "example": 12345
+          }
+        },
+        "required": [
+          "clientSecret",
+          "paymentId"
+        ]
+      },
+      "Buffer": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+}
