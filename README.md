@@ -1,98 +1,139 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
+  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
+  <h1>🛋️ SafeSpace - Therapist Booking System API</h1>
+  <p>A robust and scalable backend API for a modern therapist booking application built with NestJS and TypeScript.</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  <div>
+    <img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS" />
+    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+    <img src="https://img.shields.io/badge/Stripe-008CDD?style=for-the-badge&logo=stripe&logoColor=white" alt="Stripe" />
+    <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Swagger" />
+  </div>
+</div>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<br />
 
-## Description
+## 🚀 Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**SafeSpace** is the core backend infrastructure powering a comprehensive therapist booking platform. It handles everything from user authentication and profile management to appointment scheduling, therapy questionnaire processing, and secure payments integration.
 
-## Project setup
+Built on the progressive **NestJS** framework, the application utilizes modern backend patterns, dependency injection, and a modular architecture to ensure high maintainability and scalability.
 
-```bash
-$ npm install
+## ✨ Key Features
+
+- **🔐 Authentication & Authorization:** Secure user sign-up and login utilizing JWT (JSON Web Tokens) and Passport.
+- **👤 Profile Management:** Distinct handling of different user roles (patients and therapists) with comprehensive profile management.
+- **📅 Appointment Scheduling:** Seamless booking, tracking, and management of therapy sessions.
+- **📝 Therapy Questionnaires:** Dynamic endpoints to manage therapy types and related evaluation questions.
+- **💳 Secure Payments:** Integrated with **Stripe** to process secure transaction flows for therapy bookings.
+- **📧 Email Notifications:** Automated transactional email delivery powered by **Nodemailer**.
+- **🗃️ Database Architecture:** Robust relational data structure utilizing **PostgreSQL** and **TypeORM**.
+- **📖 Interactive API Docs:** Fully documented API endpoints accessible via **Swagger UI**.
+
+## 🛠 Tech Stack
+
+- **Framework**: [NestJS](https://nestjs.com/) (Express-based)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Database**: PostgreSQL
+- **ORM**: TypeORM
+- **Authentication**: JWT, Passport.js, bcrypt
+- **Payments Integration**: Stripe API
+- **Mailing**: Nodemailer
+- **Testing**: Jest, Supertest
+
+## ⚙️ Getting Started
+
+Follow these steps to set up the project locally for development and testing.
+
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+- **Node.js** (v18.x or higher)
+- **npm** (or yarn/pnpm)
+- **PostgreSQL** (running locally or via Docker)
+- **Stripe Account** (for API keys)
+
+### Installation
+
+1. Clone the repository and navigate into the project directory:
+   ```bash
+   git clone <repository-url>
+   cd therapy-backend-nestjs-master
+   ```
+
+2. Install the necessary dependencies:
+   ```bash
+   npm install
+   ```
+
+### Environment Config
+
+Create a `.env` file in the root of the project and provide the following environment variables (adjust values as needed for your setup):
+
+```env
+# Application Port
+PORT=5000
+
+# Database Configuration (TypeORM)
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=your_db_username
+DB_PASSWORD=your_db_password
+DB_NAME=safespace_db
+
+# Security
+JWT_SECRET=your_super_secret_jwt_key
+
+# Stripe Payment Gateway
+STRIPE_API_KEY=your_stripe_secret_key
+
+# SMTP / Email Configuration
+SMTP_HOST=smtp.your-email-provider.com
+SMTP_PORT=587
+SMTP_USER=your_smtp_username
+SMTP_PASSWORD=your_smtp_password
 ```
 
-## Compile and run the project
+### Running the Application
 
 ```bash
 # development
 $ npm run start
 
-# watch mode
+# watch mode (auto-reload)
 $ npm run start:dev
 
 # production mode
 $ npm run start:prod
 ```
 
-## Run tests
+The application will start globally on `http://localhost:5000` (or whatever `PORT` you specified). CORS is configured to accept requests from `http://localhost:3000` out of the box.
+
+## 📚 API Documentation
+
+Once the server is running, you can explore the interactive API documentation and test endpoints directly via Swagger UI:
+
+👉 **[http://localhost:5000/api/docs](http://localhost:5000/api/docs)**
+
+## 🧪 Testing
+
+The repository uses Jest for both unit testing and end-to-end (e2e) testing.
 
 ```bash
-# unit tests
+# Run unit tests
 $ npm run test
 
-# e2e tests
+# Run e2e tests
 $ npm run test:e2e
 
-# test coverage
+# Generate test coverage report
 $ npm run test:cov
 ```
 
-## Deployment
+## 📜 License
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+This project is set as [UNLICENSED](package.json). Please refer to the author for usage rights.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+> *Looking to build scalable, enterprise-grade backends? Let's connect!*
